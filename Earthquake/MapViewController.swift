@@ -26,11 +26,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, UINavigationBarDel
         let span = MKCoordinateSpanMake(5, 5)
         let region = MKCoordinateRegion(center: location, span: span)
         
+        let dropPin = MKPointAnnotation()
+        dropPin.coordinate = location
+        dropPin.title = "lat: \(location.latitude) long: \(location.longitude)"
         mapView = MKMapView()
         mapView.mapType = .Standard
         mapView.frame = view.frame
         mapView.delegate = self
         mapView.setRegion(region, animated: true)
+        mapView.addAnnotation(dropPin)
         view.addSubview(mapView)
         
     }

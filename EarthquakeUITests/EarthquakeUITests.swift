@@ -9,9 +9,10 @@
 import XCTest
 
 @testable import Earthquake
+import PureLayout
 
 class EarthquakeUITests: XCTestCase {
-    var viewController: EarthquakeViewController!
+
     override func setUp() {
         super.setUp()
         
@@ -23,16 +24,11 @@ class EarthquakeUITests: XCTestCase {
         XCUIApplication().launch()
 
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
-        viewController = EarthquakeViewController()
+        
     }
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-    func testViewControllerHasTableVIew(){
-        XCTAssertNotNil(viewController.tableView, "View controller should have a tableView")
-    }
-    
 }

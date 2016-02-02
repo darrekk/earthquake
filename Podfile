@@ -12,6 +12,6 @@ target 'EarthquakeTests' do
 end
 
 target 'EarthquakeUITests' do
-
+pod 'PureLayout'
 end
 

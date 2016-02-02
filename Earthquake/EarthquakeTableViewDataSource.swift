@@ -33,8 +33,6 @@ class EarthquakeTableViewDataSource: NSObject, UITableViewDataSource{
             cell.magnitudeLabel.textColor = .blackColor()
         }
         
-        
-        
         cell.dateTimeLabel.text = formatter.dateTime(earthquake.dateTimeString)
         cell.magnitudeLabel.text = String(format:"%.1f",magnitude)
         cell.coordinateLabel.text = "Lat: \(String(format:"%.4f", earthquake.latitude)) Long: \(String(format:"%.4f",earthquake.longitude))"
@@ -44,11 +42,13 @@ class EarthquakeTableViewDataSource: NSObject, UITableViewDataSource{
         
         return cell
     }
-
 }
 
 extension EarthquakeTableViewDataSource{
     func addEarthquake(earthquake: Earthquake){
         earthquakes.append(earthquake)
+    }
+    func getEarthquake(row: Int)->Earthquake{
+        return earthquakes[row]
     }
 }

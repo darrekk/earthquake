@@ -43,10 +43,19 @@ class EarthquakeViewController: UITableViewController {
         
         tableView.dataSource = dataSource
         dataSource?.registerCellsForTableView(tableView)
-        tableView.allowsSelection = false
+//        tableView.allowsSelection = false
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         self.tableView.estimatedRowHeight = 65;
         self.tableView.separatorStyle = .SingleLine
+    }
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let earthquake = dataSource?.getEarthquake(indexPath.row)
+        let mapViewController = MapViewController()
+        mapViewController.latitude = earthquake?.latitude
+        mapViewController.longitude = earthquake?.longitude
+        navigationController!.pushViewController(mapViewController, animated: true)
+        
+        
     }
 }
 

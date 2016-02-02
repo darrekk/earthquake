@@ -15,9 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
         let viewController = EarthquakeViewController()
         viewController.dataSource = EarthquakeTableViewDataSource()
-        window!.rootViewController = UINavigationController(rootViewController: viewController)
+        
+        let navigationController = UINavigationController(rootViewController: viewController)
+        window!.rootViewController = navigationController
         window!.makeKeyAndVisible()
         return true
     }

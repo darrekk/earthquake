@@ -19,6 +19,8 @@
 		19099A031C5FE95D004248E7 /* EarthquakeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19099A021C5FE95D004248E7 /* EarthquakeTableViewCell.swift */; };
 		19099A071C607435004248E7 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19099A061C607435004248E7 /* Formatter.swift */; };
 		19099A091C6144C2004248E7 /* FormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19099A081C6144C2004248E7 /* FormatterTests.swift */; };
+		19099A0B1C614FDC004248E7 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19099A0A1C614FDB004248E7 /* MapViewController.swift */; };
+		19099A0D1C6151BA004248E7 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19099A0C1C6151BA004248E7 /* MapKit.framework */; };
 		CC5419D2E9BCE7746738896F /* Pods_Earthquake.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C8E7757DE24BE3773B596A1 /* Pods_Earthquake.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +60,8 @@
 		19099A021C5FE95D004248E7 /* EarthquakeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EarthquakeTableViewCell.swift; sourceTree = "<group>"; };
 		19099A061C607435004248E7 /* Formatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		19099A081C6144C2004248E7 /* FormatterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatterTests.swift; sourceTree = "<group>"; };
+		19099A0A1C614FDB004248E7 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		19099A0C1C6151BA004248E7 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2AE13D81B299BB49D705F784 /* Pods-Earthquake.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Earthquake.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Earthquake/Pods-Earthquake.debug.xcconfig"; sourceTree = "<group>"; };
 		4C8E7757DE24BE3773B596A1 /* Pods_Earthquake.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Earthquake.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C58605DB9005FA1F2504BB54 /* Pods-Earthquake.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Earthquake.release.xcconfig"; path = "Pods/Target Support Files/Pods-Earthquake/Pods-Earthquake.release.xcconfig"; sourceTree = "<group>"; };
@@ -68,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19099A0D1C6151BA004248E7 /* MapKit.framework in Frameworks */,
 				CC5419D2E9BCE7746738896F /* Pods_Earthquake.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -167,6 +172,7 @@
 			children = (
 				190999C81C5FD75B004248E7 /* EarthquakeViewController.swift */,
 				190999FE1C5FE2A1004248E7 /* EarthquakeTableViewDataSource.swift */,
+				19099A0A1C614FDB004248E7 /* MapViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -182,6 +188,7 @@
 		61601C591AC344F477D50256 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				19099A0C1C6151BA004248E7 /* MapKit.framework */,
 				4C8E7757DE24BE3773B596A1 /* Pods_Earthquake.framework */,
 			);
 			name = Frameworks;
@@ -387,6 +394,7 @@
 				190999C91C5FD75B004248E7 /* EarthquakeViewController.swift in Sources */,
 				190999C71C5FD75B004248E7 /* AppDelegate.swift in Sources */,
 				190999FB1C5FD7FB004248E7 /* EarthquakeEndpoint.swift in Sources */,
+				19099A0B1C614FDC004248E7 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -25,4 +25,12 @@ class Formatter{
         
         return ("\(dateFormatter.stringFromDate(newDateTime!)) \(hour):\(minute)")
     }
+    func coordinates(latitude: Double, longitude: Double)->NSDictionary{
+        let north = latitude + 27
+        let south = latitude - 27
+        let west = longitude - 38
+        let east = longitude + 38
+        
+        return ["north":north, "south":south,"west":west,"east":east]
+    }
 }

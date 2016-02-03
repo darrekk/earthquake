@@ -12,7 +12,9 @@ import XCTest
 class FormatterTests: XCTestCase {
     var formatter: Formatter!
     let dateTime = "2015-05-30 11:36:00"
+    let coordinates = ["north":44, "south":-10,"east":-22, "west":56]
     static let formattedDateTime = "May 30, 2015 11:36"
+    
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -28,5 +30,8 @@ class FormatterTests: XCTestCase {
         let formattedDateTime = formatter.dateTime(dateTime)
         XCTAssertEqual(formattedDateTime, FormatterTests.formattedDateTime)
     }
-
+    func testCoordinatesFormatter(){
+        let formattedCoordinates = formatter.coordinates(17, longitude: 18)
+        XCTAssertEqual(coordinates, formattedCoordinates)
+    }
 }

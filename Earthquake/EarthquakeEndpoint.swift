@@ -12,10 +12,12 @@ typealias earthquakeRequestHandler = (earthquakeValues: AnyObject?, error: NSErr
 
 class EarthquakeEndpoint{
     
-    private let earthquakeEndpoint: String = "http://api.geonames.org/earthquakesJSON?formatted=true&north=44.1&south=-9.9&east=-22.4&west=55.2&username=mkoppelman"
     
-    func earthquakeRequest(completionHandler: earthquakeRequestHandler){
+    func earthquakeRequest(coordinates: NSDictionary, completionHandler: earthquakeRequestHandler){
+        let earthquakeEndpoint: String = "http://api.geonames.org/earthquakesJSON?formatted=true&north=\(coordinates.objectForKey("north")!.stringValue)&south=\(coordinates.objectForKey("south")!.stringValue)&east=\(coordinates.objectForKey("east")!.stringValue)&west=\(coordinates.objectForKey("west")!.stringValue)&username=mkoppelman"
+        
         if let url = NSURL(string: earthquakeEndpoint){
+            
             let urlRequest = NSMutableURLRequest(URL: url)
             let urlSession = NSURLSession(configuration: NSURLSessionConfiguration.ephemeralSessionConfiguration())
             let dataTask = urlSession.dataTaskWithRequest(urlRequest, completionHandler: {(data: NSData?, urlResponse: NSURLResponse?, error: NSError?) -> Void in
@@ -26,7 +28,6 @@ class EarthquakeEndpoint{
                     }
                     catch let error {
                         self.finishWithError(error as NSError, completionHandler: completionHandler)
-                        print(error)
                     }
                 }
                 else{

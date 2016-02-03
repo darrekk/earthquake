@@ -10,7 +10,7 @@ import UIKit
 
 class EarthquakeTableViewCell: UITableViewCell {
     
-    let kLabelHorizontalInsets: CGFloat = 15.0
+    let kLabelHorizontalInsets: CGFloat = 10.0
     let kLabelVerticalInsets: CGFloat = 10.0
 
     let dateTimeLabel: UILabel = UILabel.newAutoLayoutView()
@@ -61,6 +61,7 @@ class EarthquakeTableViewCell: UITableViewCell {
 
             }
             //Set layout
+            
             magnitudeLabel.autoPinEdgeToSuperviewEdge(.Leading, withInset: kLabelHorizontalInsets)
             magnitudeLabel.autoAlignAxisToSuperviewAxis(.Horizontal)
             magnitudeLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: dateTimeLabel)
@@ -72,7 +73,6 @@ class EarthquakeTableViewCell: UITableViewCell {
             
             coordinateLabel.autoAlignAxisToSuperviewAxis(.Vertical)
             coordinateLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: kLabelVerticalInsets)
-            
             didSetupConstraints = true
         }
         super.updateConstraints()

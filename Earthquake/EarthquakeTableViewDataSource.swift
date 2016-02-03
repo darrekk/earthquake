@@ -13,15 +13,17 @@ class EarthquakeTableViewDataSource: NSObject, UITableViewDataSource{
     private var earthquakes = [Earthquake]()
     private var formatter = Formatter()
     private let cellIdentifier = "Cell"
+
     
     func registerCellsForTableView(tableView: UITableView) {
-        tableView.registerClass(EarthquakeTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+            tableView.registerClass(EarthquakeTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return earthquakes.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! EarthquakeTableViewCell
         
         let earthquake = earthquakes[indexPath.row]
@@ -47,6 +49,9 @@ class EarthquakeTableViewDataSource: NSObject, UITableViewDataSource{
 extension EarthquakeTableViewDataSource{
     func addEarthquake(earthquake: Earthquake){
         earthquakes.append(earthquake)
+    }
+    func removeEarthquakes(){
+        earthquakes.removeAll()
     }
     func getEarthquake(row: Int)->Earthquake{
         return earthquakes[row]

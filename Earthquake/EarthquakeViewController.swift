@@ -8,15 +8,21 @@
 
 import UIKit
 import PureLayout
+import CoreLocation
 
-class EarthquakeViewController: UITableViewController {
+class EarthquakeViewController: UITableViewController, CLLocationManagerDelegate {
     
     var dataSource: EarthquakeTableViewDataSource?
+    var navBarButton: UIBarButtonItem?
+    var isLocation: Bool?
+    let locationManager = CLLocationManager()
+    let formatter = Formatter()
     
-    func fetchEarthquakes(){
-        EarthquakeEndpoint().earthquakeRequest(){ (earthquakeValues, error) -> Void in
+    
+    func fetchEarthquakes(coordinates: NSDictionary = ["north":44.1, "south":-9.9,"east":-22.4, "west":55.2]){
+        EarthquakeEndpoint().earthquakeRequest(coordinates){ (earthquakeValues, error) -> Void in
             if let someError = error{
-                let alertController = UIAlertController(title: someError.localizedDescription , message:"Could not load earthquake data." , preferredStyle: UIAlertControllerStyle.Alert)
+                let alertController = UIAlertController(title: someError.localizedDescription, message:"Could not load earthquake data." , preferredStyle: UIAlertControllerStyle.Alert)
                 alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
                 self.presentViewController(alertController, animated: true, completion: nil)
             }
@@ -27,7 +33,7 @@ class EarthquakeViewController: UITableViewController {
     }
     func makeEarthquakes(earthquakeValues: AnyObject){
         let earthquakes = earthquakeValues["earthquakes"] as! NSArray
-        
+        dataSource?.removeEarthquakes()
         for earthquake in earthquakes{
             let earthquakeObject = Earthquake(earthquakeData: earthquake as! NSDictionary)
             dataSource?.addEarthquake(earthquakeObject)
@@ -36,17 +42,58 @@ class EarthquakeViewController: UITableViewController {
             })
         }
     }
-    
+    func swapLocation(){
+        if(CLLocationManager.locationServicesEnabled() && isLocation == false){
+            self.locationManager.startUpdatingLocation()
+        }
+        else{
+            fetchEarthquakes()
+            isLocation = false
+        }
+    }
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let locationArray = locations as NSArray
+        let locationObj = locationArray.lastObject as! CLLocation
+        let coord = locationObj.coordinate
+        
+        self.isLocation = true
+        fetchEarthquakes(formatter.coordinates(coord.latitude, longitude: coord.longitude))
+        self.locationManager.stopUpdatingLocation()
+    }
 
     override func viewDidLoad() {
-        fetchEarthquakes()
+        
         
         tableView.dataSource = dataSource
         dataSource?.registerCellsForTableView(tableView)
-//        tableView.allowsSelection = false
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         self.tableView.estimatedRowHeight = 65;
         self.tableView.separatorStyle = .SingleLine
+        
+        
+        locationManager.delegate = self
+        
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+        else{
+            //load data from pre-set location if location services turned off
+            fetchEarthquakes()
+            isLocation = false
+        }
+        
+        //load data from pre-set location if still waiting for authorization
+        if CLLocationManager.authorizationStatus() == CLAuthorizationStatus.NotDetermined {
+            isLocation = false
+            fetchEarthquakes()
+        }
+        navBarButton = UIBarButtonItem(title: "Swap Location", style: .Plain, target: self, action: "swapLocation")
+        self.navigationItem.setRightBarButtonItem(navBarButton, animated: true)
+
     }
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let earthquake = dataSource?.getEarthquake(indexPath.row)

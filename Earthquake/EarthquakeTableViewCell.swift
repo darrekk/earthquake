@@ -4,6 +4,7 @@
 //
 //  Created by Darrekk Hocking on 2/1/16.
 //  Copyright © 2016 Darrekk Hocking. All rights reserved.
+//  Referenced https://github.com/PureLayout/PureLayout/tree/master/PureLayout/Example-iOS/Demos for help
 //
 
 import UIKit

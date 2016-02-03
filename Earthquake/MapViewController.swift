@@ -23,7 +23,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UINavigationBarDel
             longitude: self.longitude
         )
         
-        let span = MKCoordinateSpanMake(5, 5)
+        let span = MKCoordinateSpanMake(14, 14)
         let region = MKCoordinateRegion(center: location, span: span)
         
         let dropPin = MKPointAnnotation()

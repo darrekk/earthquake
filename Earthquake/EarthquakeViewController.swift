@@ -14,7 +14,8 @@ class EarthquakeViewController: UITableViewController, CLLocationManagerDelegate
     
     var dataSource: EarthquakeTableViewDataSource?
     var navBarButton: UIBarButtonItem?
-    var isLocation: Bool?
+    var isLocation: Bool = false
+    var isRunningSimulator: Bool?
     let locationManager = CLLocationManager()
     let formatter = Formatter()
     
@@ -43,12 +44,18 @@ class EarthquakeViewController: UITableViewController, CLLocationManagerDelegate
         }
     }
     func swapLocation(){
-        if(CLLocationManager.locationServicesEnabled() && isLocation == false){
-            self.locationManager.startUpdatingLocation()
+        if(CLLocationManager.locationServicesEnabled() && self.isLocation == false){
+            if(isRunningSimulator == true){
+                self.fetchEarthquakes(formatter.coordinates((locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!))
+            }
+            else{
+                self.locationManager.startUpdatingLocation()
+            }
+            
         }
         else{
-            fetchEarthquakes()
-            isLocation = false
+            self.fetchEarthquakes()
+            self.isLocation = false
         }
     }
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -57,11 +64,15 @@ class EarthquakeViewController: UITableViewController, CLLocationManagerDelegate
         let coord = locationObj.coordinate
         
         self.isLocation = true
-        fetchEarthquakes(formatter.coordinates(coord.latitude, longitude: coord.longitude))
+        self.fetchEarthquakes(formatter.coordinates(coord.latitude, longitude: coord.longitude))
         self.locationManager.stopUpdatingLocation()
+        
     }
 
     override func viewDidLoad() {
+        if(TARGET_OS_SIMULATOR != 0){
+            isRunningSimulator = true
+        }
         
         
         tableView.dataSource = dataSource
@@ -76,14 +87,23 @@ class EarthquakeViewController: UITableViewController, CLLocationManagerDelegate
         self.locationManager.requestWhenInUseAuthorization()
         
         if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
+            if(isRunningSimulator == true){
+                //Use simulator debug coordinates
+                self.fetchEarthquakes(formatter.coordinates((locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!))
+                self.isLocation = true
+            }
+            else{
+                //Use devices coordinates
+                self.locationManager.delegate = self
+                self.locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
+                self.locationManager.startUpdatingLocation()
+
+            }
         }
         else{
             //load data from pre-set location if location services turned off
             fetchEarthquakes()
-            isLocation = false
+            self.isLocation = false
         }
         
         //load data from pre-set location if still waiting for authorization

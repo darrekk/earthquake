@@ -38,11 +38,16 @@ class EarthquakeTableViewCell: UITableViewCell {
         magnitudeLabel.textAlignment = .Center
         magnitudeLabel.textColor = UIColor.blackColor()
         magnitudeLabel.adjustsFontSizeToFitWidth = true
-        
+
         coordinateLabel.lineBreakMode = .ByTruncatingTail
         coordinateLabel.numberOfLines = 0
         coordinateLabel.textAlignment = .Left
         coordinateLabel.textColor = UIColor.blackColor()
+        
+        dateTimeLabel.lineBreakMode = .ByTruncatingTail
+        dateTimeLabel.numberOfLines = 0
+        dateTimeLabel.textAlignment = .Left
+        dateTimeLabel.textColor = UIColor.blackColor()
 
         contentView.addSubview(dateTimeLabel)
         contentView.addSubview(magnitudeLabel)
@@ -64,9 +69,10 @@ class EarthquakeTableViewCell: UITableViewCell {
             
             magnitudeLabel.autoPinEdgeToSuperviewEdge(.Leading, withInset: kLabelHorizontalInsets)
             magnitudeLabel.autoAlignAxisToSuperviewAxis(.Horizontal)
+            magnitudeLabel.autoAlignAxis(.Vertical, toSameAxisOfView: dateTimeLabel, withMultiplier: 0.25)
             magnitudeLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: dateTimeLabel)
             magnitudeLabel.autoPinEdge(.Bottom, toEdge: .Top, ofView: coordinateLabel)
-            magnitudeLabel.autoPinEdge(.Trailing, toEdge: .Leading, ofView: coordinateLabel, withOffset: kLabelHorizontalInsets)
+
             
             dateTimeLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: kLabelVerticalInsets)
             dateTimeLabel.autoAlignAxisToSuperviewAxis(.Vertical)

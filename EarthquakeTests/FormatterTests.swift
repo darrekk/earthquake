@@ -30,8 +30,4 @@ class FormatterTests: XCTestCase {
         let formattedDateTime = formatter.dateTime(dateTime)
         XCTAssertEqual(formattedDateTime, FormatterTests.formattedDateTime)
     }
-    func testCoordinatesFormatter(){
-        let formattedCoordinates = formatter.coordinates(17, longitude: 18)
-        XCTAssertEqual(coordinates, formattedCoordinates)
-    }
 }

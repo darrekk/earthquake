@@ -45,14 +45,7 @@ class EarthquakeViewController: UITableViewController, CLLocationManagerDelegate
     }
     func swapLocation(){
         if(CLLocationManager.locationServicesEnabled() && self.isLocation == false){
-            if(isRunningSimulator == true){
-                self.fetchEarthquakes()
-                self.isLocation = true
-            }
-            else{
-                self.locationManager.startUpdatingLocation()
-            }
-            
+            self.locationManager.startUpdatingLocation()
         }
         else{
             self.fetchEarthquakes()

@@ -46,7 +46,8 @@ class EarthquakeViewController: UITableViewController, CLLocationManagerDelegate
     func swapLocation(){
         if(CLLocationManager.locationServicesEnabled() && self.isLocation == false){
             if(isRunningSimulator == true){
-                self.fetchEarthquakes(formatter.coordinates((locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!))
+                self.fetchEarthquakes()
+                self.isLocation = true
             }
             else{
                 self.locationManager.startUpdatingLocation()
@@ -62,7 +63,6 @@ class EarthquakeViewController: UITableViewController, CLLocationManagerDelegate
         let locationArray = locations as NSArray
         let locationObj = locationArray.lastObject as! CLLocation
         let coord = locationObj.coordinate
-        
         self.isLocation = true
         self.fetchEarthquakes(formatter.coordinates(coord.latitude, longitude: coord.longitude))
         self.locationManager.stopUpdatingLocation()
@@ -72,6 +72,9 @@ class EarthquakeViewController: UITableViewController, CLLocationManagerDelegate
     override func viewDidLoad() {
         if(TARGET_OS_SIMULATOR != 0){
             isRunningSimulator = true
+        }else{
+            navBarButton = UIBarButtonItem(title: "Swap Location", style: .Plain, target: self, action: "swapLocation")
+            self.navigationItem.setRightBarButtonItem(navBarButton, animated: true)
         }
         
         
@@ -88,8 +91,8 @@ class EarthquakeViewController: UITableViewController, CLLocationManagerDelegate
         
         if CLLocationManager.locationServicesEnabled() {
             if(isRunningSimulator == true){
-                //Use simulator debug coordinates
-                self.fetchEarthquakes(formatter.coordinates((locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!))
+                //Use defualt location
+                self.fetchEarthquakes()
                 self.isLocation = true
             }
             else{
@@ -111,9 +114,7 @@ class EarthquakeViewController: UITableViewController, CLLocationManagerDelegate
             isLocation = false
             fetchEarthquakes()
         }
-        navBarButton = UIBarButtonItem(title: "Swap Location", style: .Plain, target: self, action: "swapLocation")
-        self.navigationItem.setRightBarButtonItem(navBarButton, animated: true)
-
+        
     }
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let earthquake = dataSource?.getEarthquake(indexPath.row)

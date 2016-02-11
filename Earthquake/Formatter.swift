@@ -13,17 +13,21 @@ class Formatter{
         let dateFormatter = NSDateFormatter()        
 
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-        let newDateTime = dateFormatter.dateFromString(dateTime)
 
+        let dateTime = dateFormatter.dateFromString(dateTime)
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd h:mm"
+        
+        let newStringDateTime = dateFormatter.stringFromDate(dateTime!)
+        
+        let newDateTime = dateFormatter.dateFromString(newStringDateTime)
+        
+        
+        
         dateFormatter.dateStyle = NSDateFormatterStyle.MediumStyle
+        dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
         
-        let calendar = NSCalendar.currentCalendar()
-        let comp = calendar.components([.Hour, .Minute], fromDate: newDateTime!)
-        let hour = comp.hour
-        let minute = comp.minute
-        
-        return ("\(dateFormatter.stringFromDate(newDateTime!)) \(hour):\(minute)")
+        return ("\(dateFormatter.stringFromDate(newDateTime!))")
     }
     func coordinates(latitude: Double, longitude: Double)->NSDictionary{
         let north = latitude + 27

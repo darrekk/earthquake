@@ -67,7 +67,6 @@ class EarthquakeTableViewCell: UITableViewCell {
 
             }
             //Set layout
-            
             magnitudeLabel.autoPinEdgeToSuperviewEdge(.Leading, withInset: kLabelHorizontalInsets)
             magnitudeLabel.autoAlignAxisToSuperviewAxis(.Horizontal)
             magnitudeLabel.autoAlignAxis(.Vertical, toSameAxisOfView: dateTimeLabel, withMultiplier: 0.25)

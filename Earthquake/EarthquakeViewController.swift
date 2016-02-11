@@ -73,8 +73,8 @@ class EarthquakeViewController: UITableViewController, CLLocationManagerDelegate
         
         tableView.dataSource = dataSource
         dataSource?.registerCellsForTableView(tableView)
-        self.tableView.rowHeight = UITableViewAutomaticDimension;
         self.tableView.estimatedRowHeight = 65;
+        self.tableView.rowHeight = UITableViewAutomaticDimension;
         self.tableView.separatorStyle = .SingleLine
         
         
@@ -93,7 +93,6 @@ class EarthquakeViewController: UITableViewController, CLLocationManagerDelegate
                 self.locationManager.delegate = self
                 self.locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
                 self.locationManager.startUpdatingLocation()
-
             }
         }
         else{
